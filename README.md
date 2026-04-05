@@ -9,89 +9,89 @@
 
 > Which Claude do you like? The open source one is the best.
 
-牢 A (Anthropic) 官方 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI 工具的源码反编译/逆向还原项目。目标是将 Claude Code 大部分功能及工程化能力复现 (问就是老佛爷已经付过钱了)。虽然很难绷, 但是它叫做 CCB(踩踩背)...
+A decompiled/reverse-engineered version of the official Anthropic [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI tool. The goal is to restore most of Claude Code's functionality and engineering capabilities (well, we've already paid for it anyway). It's hard not to laugh, but it's called CCB...
 
-[文档在这里, 支持投稿 PR](https://ccb.agent-aura.top/)
+[Documentation is here, PRs welcome](https://ccb.agent-aura.top/)
 
-赞助商占位符
+Sponsorship placeholder
 
-- [x] v1 会完成跑通及基本的类型检查通过;
-- [x] V2 会完整实现工程化配套设施;
-  - [ ] Biome 格式化可能不会先实施, 避免代码冲突
-  - [x] 构建流水线完成, 产物 Node/Bun 都可以运行
-- [x] V3 会写大量文档, 完善文档站点
-- [x] V4 会完成大量的测试文件, 以提高稳定性
-  - [x] Buddy 小宠物回来啦 [文档](https://ccb.agent-aura.top/docs/features/buddy)
-  - [x] Auto Mode 回归 [文档](https://ccb.agent-aura.top/docs/safety/auto-mode)
-  - [x] 所有 Feature 现在可以通过环境变量配置, 而不是垃圾的 bun --feature
-- [x] V5 支持企业级的监控上报功能, 补全缺失的工具, 解除限制
-  - [x] 移除牢 A 的反蒸馏代码!!!
-  - [x] 补全 web search 能力(用的 Bing 搜索)!!! [文档](https://ccb.agent-aura.top/docs/features/web-browser-tool)
-  - [x] 支持 Debug [文档](https://ccb.agent-aura.top/docs/features/debug-mode)
-  - [x] 关闭自动更新;
-  - [x] 添加自定义 sentry 错误上报支持 [文档](https://ccb.agent-aura.top/docs/internals/sentry-setup)
-  - [x] 添加自定义 GrowthBook 支持 (GB 也是开源的, 现在你可以配置一个自定义的遥控平台) [文档](https://ccb.agent-aura.top/docs/internals/growthbook-adapter)
-  - [x] 自定义 login 模式, 大家可以用这个配置 Claude 的模型!
-- [ ] V6 大规模重构石山代码, 全面模块分包
-  - [ ] V6 将会为全新分支, 届时 main 分支将会封存为历史版本
+- [x] v1 will complete functional testing and basic type checking;
+- [x] V2 will fully implement engineering infrastructure;
+  - [ ] Biome formatting may not be implemented first to avoid code conflicts
+  - [x] Build pipeline complete, artifacts can run on both Node and Bun
+- [x] V3 will write extensive documentation and improve the documentation site
+- [x] V4 will complete extensive test files to improve stability
+  - [x] Buddy pet is back [Documentation](https://ccb.agent-aura.top/docs/features/buddy)
+  - [x] Auto Mode restored [Documentation](https://ccb.agent-aura.top/docs/safety/auto-mode)
+  - [x] All Features can now be configured via environment variables, no more `bun --feature`
+- [x] V5 supports enterprise-grade monitoring and reporting, completes missing tools, lifts restrictions
+  - [x] Remove anti-distillation code!!!
+  - [x] Complete web search capability (using Bing search)!!! [Documentation](https://ccb.agent-aura.top/docs/features/web-browser-tool)
+  - [x] Support Debug [Documentation](https://ccb.agent-aura.top/docs/features/debug-mode)
+  - [x] Disable auto-updates;
+  - [x] Add custom Sentry error reporting support [Documentation](https://ccb.agent-aura.top/docs/internals/sentry-setup)
+  - [x] Add custom GrowthBook support (GB is also open source, now you can configure a custom control platform) [Documentation](https://ccb.agent-aura.top/docs/internals/growthbook-adapter)
+  - [x] Custom login mode, everyone can configure Claude models this way!
+- [ ] V6 massive refactoring and modularization
+  - [ ] V6 will be on a new branch, at which time the main branch will be archived as historical version
 
-> 我不知道这个项目还会存在多久, Star + Fork + git clone + .zip 包最稳健; 说白了就是扛旗项目, 看看能走多远
+> I don't know how long this project will survive. Star + Fork + git clone + .zip download is most reliable; in short, it's a flagship project, let's see how far it goes
 >
-> 这个项目更新很快, 后台有 Opus 持续优化, 几乎几个小时就有新变化;
+> This project updates very quickly, with Opus continuously optimizing in the background, changes almost every few hours;
 >
-> Claude 已经烧了 1000$ 以上, 没钱了, 换成 GLM 继续玩; @zai-org GLM 5.1 非常可以;
+> Claude has already burned over $1000, ran out of money, switched to GLM to continue; @zai-org GLM 5.1 is very good;
 >
 
-## 快速开始
+## Quick Start
 
-### 环境要求
+### Environment Requirements
 
-一定要最新版本的 bun 啊, 不然一堆奇奇怪怪的 BUG!!! bun upgrade!!!
+Must use the latest version of bun, otherwise you'll encounter all sorts of weird bugs!!! `bun upgrade`!!!
 
 - [Bun](https://bun.sh/) >= 1.3.11
-- 常规的配置 CC 的方式, 各大提供商都有自己的配置方式
+- Standard Claude Code configuration, each provider has their own configuration method
 
-### 安装
+### Installation
 
 ```bash
 bun install
 ```
 
-### 运行
+### Running
 
 ```bash
-# 开发模式, 看到版本号 888 说明就是对了
+# Development mode, if you see version 888 then it's correct
 bun run dev
 
-# 构建
+# Build
 bun run build
 ```
 
-构建采用 code splitting 多文件打包（`build.ts`），产物输出到 `dist/` 目录（入口 `dist/cli.js` + 约 450 个 chunk 文件）。
+The build uses code splitting with multiple file bundling (`build.ts`), with artifacts output to the `dist/` directory (entry point `dist/cli.js` + approximately 450 chunk files).
 
-构建出的版本 bun 和 node 都可以启动, 你 publish 到私有源可以直接启动
+The built version can be started with both bun and node. You can publish it to a private registry and run it directly.
 
-如果遇到 bug 请直接提一个 issues, 我们优先解决
+If you encounter bugs, please open an issue directly, we prioritize fixing them.
 
-### 新人配置 /login
+### New User Configuration /login
 
-首次运行后，在 REPL 中输入 `/login` 命令进入登录配置界面，选择 **Custom Platform** 即可对接第三方 API 兼容服务（无需 Anthropic 官方账号）。
+After the first run, enter the `/login` command in the REPL to access the login configuration screen. Select **Custom Platform** to connect to third-party API-compatible services (no official Anthropic account required).
 
-需要填写的字段：
+Fields to fill in:
 
-| 字段 | 说明 | 示例 |
-|------|------|------|
-| Base URL | API 服务地址 | `https://api.example.com/v1` |
-| API Key | 认证密钥 | `sk-xxx` |
-| Haiku Model | 快速模型 ID | `claude-haiku-4-5-20251001` |
-| Sonnet Model | 均衡模型 ID | `claude-sonnet-4-6` |
-| Opus Model | 高性能模型 ID | `claude-opus-4-6` |
+| Field | Description | Example |
+|-------|-------------|----------|
+| Base URL | API service address | `https://api.example.com/v1` |
+| API Key | Authentication key | `sk-xxx` |
+| Haiku Model | Fast model ID | `claude-haiku-4-5-20251001` |
+| Sonnet Model | Balanced model ID | `claude-sonnet-4-6` |
+| Opus Model | High-performance model ID | `claude-opus-4-6` |
 
-- **Tab / Shift+Tab** 切换字段，**Enter** 确认并跳到下一个，最后一个字段按 Enter 保存
-- 模型字段会自动读取当前环境变量预填
-- 配置保存到 `~/.claude/settings.json` 的 `env` 字段，保存后立即生效
+- **Tab / Shift+Tab** to switch fields, **Enter** to confirm and move to the next field, press Enter on the last field to save
+- Model fields will automatically read and prefill from current environment variables
+- Configuration is saved to the `env` field in `~/.claude/settings.json`, takes effect immediately after saving
 
-也可以直接编辑 `~/.claude/settings.json`：
+You can also directly edit `~/.claude/settings.json`:
 
 ```json
 {
@@ -105,38 +105,38 @@ bun run build
 }
 ```
 
-> 支持所有 Anthropic API 兼容服务（如 OpenRouter、AWS Bedrock 代理等），只要接口兼容 Messages API 即可。
+> Supports all Anthropic API-compatible services (such as OpenRouter, AWS Bedrock proxies, etc.), as long as the interface is compatible with the Messages API.
 
 ## Feature Flags
 
-所有功能开关通过 `FEATURE_<FLAG_NAME>=1` 环境变量启用，例如：
+All feature flags are enabled via the `FEATURE_<FLAG_NAME>=1` environment variable, for example:
 
 ```bash
 FEATURE_BUDDY=1 FEATURE_FORK_SUBAGENT=1 bun run dev
 ```
 
-各 Feature 的详细说明见 [`docs/features/`](docs/features/) 目录，欢迎投稿补充。
+Detailed descriptions of each Feature can be found in the [`docs/features/`](docs/features/) directory, contributions are welcome.
 
-## VS Code 调试
+## VS Code Debugging
 
-TUI (REPL) 模式需要真实终端，无法直接通过 VS Code launch 启动调试。使用 **attach 模式**：
+TUI (REPL) mode requires a real terminal and cannot be debugged directly via VS Code launch. Use **attach mode**:
 
-### 步骤
+### Steps
 
-1. **终端启动 inspect 服务**：
+1. **Start the inspect service in terminal**:
    ```bash
    bun run dev:inspect
    ```
-   会输出类似 `ws://localhost:8888/xxxxxxxx` 的地址。
+   It will output an address similar to `ws://localhost:8888/xxxxxxxx`.
 
-2. **VS Code 附着调试器**：
-   - 在 `src/` 文件中打断点
-   - F5 → 选择 **"Attach to Bun (TUI debug)"**
+2. **Attach debugger in VS Code**:
+   - Set breakpoints in `src/` files
+   - Press F5 → Select **"Attach to Bun (TUI debug)"**
 
 
-## 相关文档及网站
+## Related Documentation and Websites
 
-- **在线文档（Mintlify）**: [ccb.agent-aura.top](https://ccb.agent-aura.top/) — 文档源码位于 [`docs/`](docs/) 目录，欢迎投稿 PR
+- **Online Documentation (Mintlify)**: [ccb.agent-aura.top](https://ccb.agent-aura.top/) — documentation source code is in the [`docs/`](docs/) directory, PRs are welcome
 - **DeepWiki**: <https://deepwiki.com/claude-code-best/claude-code>
 
 ## Contributors
@@ -155,6 +155,6 @@ TUI (REPL) 模式需要真实终端，无法直接通过 VS Code launch 启动�
  </picture>
 </a>
 
-## 许可证
+## License
 
-本项目仅供学习研究用途。Claude Code 的所有权利归 [Anthropic](https://www.anthropic.com/) 所有。
+This project is for learning and research purposes only. All rights to Claude Code belong to [Anthropic](https://www.anthropic.com/).
